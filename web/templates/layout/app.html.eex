@@ -7,25 +7,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Phoenix!</title>
+    <meta name="tn:csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token %>">
+
+    <title>Chatty</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container" role="main">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-        </ul>
-        <span class="logo"></span>
-      </div>
+    <div class="container-fluid" role="main">
+      <div id="navbar"></div>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <div class="row">
+        <div id="sidebar"></div>
+        <div id="content"></div>
+      </div>
 
       <%= @inner %>
 
-    </div> <!-- /container -->
+    </div>
+
+    <div id="modal-target"></div>
+
+    <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    </div>
   </body>
 </html>
