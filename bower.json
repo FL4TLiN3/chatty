@@ -1,0 +1,26 @@
+{
+  "name": "chatty",
+  "version": "0.0.0",
+  "homepage": "https://github.com/FL4TLiN3/chatty",
+  "authors": [
+    "HiranoMasaaki <hirano.masaaki@dena.jp>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.3",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "bootstrap-social": "~4.10.1",
+    "bootstrap-sass": "bootstrap-sass-official#~3.3.5"
+  }
+}

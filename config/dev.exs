@@ -12,13 +12,15 @@ config :chatty, Chatty.Endpoint,
   code_reloader: true,
   cache_static_lookup: false,
   check_origin: false,
-  watchers: []
+  watchers: [node: ["node_modules/gulp/bin/gulp.js"]]
 
 # Watch static and templates for browser reloading.
 config :chatty, Chatty.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{web/models/.*(ex)$},
+      ~r{web/controllers/.*(ex)$},
       ~r{web/views/.*(ex)$},
       ~r{web/templates/.*(eex)$}
     ]
