@@ -30,11 +30,9 @@ const Main = React.createClass({
 
   render: function () {
     return (
-      <div className="col-md-10 main-stories row">
-        <div className="chat">
-          <div id="messages"></div>
-          <input id="chat-input" type="text"></input>
-        </div>
+      <div className="col-md-10 chat row">
+        <div id="messages" className="messages"></div>
+        <input id="chat-input" className="chat-input" placeholder="Message..." type="text"></input>
       </div>
     );
   }
