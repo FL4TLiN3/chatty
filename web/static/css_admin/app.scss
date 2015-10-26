@@ -1,0 +1,70 @@
+@import "variables";
+@import "bootstrap";
+@import "bootstrap-social";
+@import "admin-lte";
+@import "admin-lte/skin-green";
+
+.admin.content {
+  h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+  }
+
+  table {
+    background: #fdfdfd;
+
+    tr, th, td {
+      border: 1px solid #ddd;
+      broder-collapse: collapse;
+    }
+
+    th {
+      font-size: 18px;
+      white-space: nowrap;
+    }
+
+    td {
+      font-size: 12px;
+    }
+
+    .buttons {
+      width: 140px;
+
+      form.link {
+        display: inline-block;
+      }
+    }
+  }
+
+  ul {
+    padding: 15px;
+    background: #fdfdfd;
+    list-style: none;
+
+    li {
+      margin: 15px 0 15px 180px;
+
+      strong {
+        display: inline-block;
+        width: 180px;
+        margin-left: -180px;
+      }
+    }
+  }
+
+  .form-group {
+    label {
+      display: block;
+      margin-top: 30px;
+      font-size: 18px;
+    }
+
+    textarea {
+      min-height: 250px;
+    }
+  }
+}

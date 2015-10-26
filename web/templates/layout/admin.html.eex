@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin | THE NEWS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/admin.css") %>">
+  </head>
+
+  <body class="hold-transition skin-green sidebar-mini">
+    <div class="wrapper">
+      <%= render Chatty.AdminPartialView, "navbar.html" %>
+      <%= render Chatty.AdminPartialView, "sidebar.html" %>
+
+      <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="admin content">
+          <%= @inner %>
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+
+      <%= render Chatty.AdminPartialView, "sidebar.html" %>
+    </div>
+    <script src="<%= static_path(@conn, "/js/vendor_admin.js") %>"></script>
+  </body>
+</html>

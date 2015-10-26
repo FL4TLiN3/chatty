@@ -1,0 +1,1 @@
+../../../bower_components/AdminLTE/dist/js/app.js

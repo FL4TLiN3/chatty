@@ -24,6 +24,20 @@ gulp.task('build-vendor-js', function() {
     .pipe(gulp.dest('priv/static/js'));
 });
 
+gulp.task('build-vendor-admin-js', function() {
+  return gulp.src([
+    'web/static/vendor/jquery.js',
+    'web/static/vendor/bootstrap.js',
+    'web/static/vendor/AdminLTE.js'])
+    .pipe(order([
+      "jquery.js",
+      "bootstrap.js",
+      "AdminLTE.js"
+    ]))
+    .pipe(concat('vendor_admin.js'))
+    .pipe(gulp.dest('priv/static/js'));
+});
+
 gulp.task('build-style', function () {
   return gulp.src('web/static/css/app.scss')
     .pipe(sourcemaps.init())
@@ -67,6 +81,7 @@ gulp.task('sync-assets', function() {
 gulp.task('default', [
   'build-js:development',
   'build-vendor-js',
+  'build-vendor-admin-js',
   'build-style',
   'watch-style',
   'build-style-admin',
