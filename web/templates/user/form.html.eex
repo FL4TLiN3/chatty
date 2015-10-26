@@ -1,0 +1,56 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :email, "Email", class: "control-label" %>
+    <%= text_input f, :email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :name, "Name", class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password, "Password", class: "control-label" %>
+    <%= password_input f, :password, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :facebook_access_token, "Facebook access token", class: "control-label" %>
+    <%= text_input f, :facebook_access_token, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :access_secret, "Access secret", class: "control-label" %>
+    <%= text_input f, :access_secret, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :access_secret_generated_at, "Access secret generated at", class: "control-label" %>
+    <%= datetime_select f, :access_secret_generated_at, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :access_token, "Access token", class: "control-label" %>
+    <%= text_input f, :access_token, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :access_token_expires_at, "Access token expires at", class: "control-label" %>
+    <%= datetime_select f, :access_token_expires_at, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

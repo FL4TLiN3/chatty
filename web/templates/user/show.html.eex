@@ -1,0 +1,48 @@
+<h2>Show user</h2>
+
+<ul>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </li>
+
+  <li>
+    <strong>Password:</strong>
+    <%= @user.password %>
+  </li>
+
+  <li>
+    <strong>Facebook access token:</strong>
+    <%= @user.facebook_access_token %>
+  </li>
+
+  <li>
+    <strong>Access secret:</strong>
+    <%= @user.access_secret %>
+  </li>
+
+  <li>
+    <strong>Access secret generated at:</strong>
+    <%= @user.access_secret_generated_at %>
+  </li>
+
+  <li>
+    <strong>Access token:</strong>
+    <%= @user.access_token %>
+  </li>
+
+  <li>
+    <strong>Access token expires at:</strong>
+    <%= @user.access_token_expires_at %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: user_path(@conn, :edit, @user) %>
+<%= link "Back", to: user_path(@conn, :index) %>

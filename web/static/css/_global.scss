@@ -1,0 +1,23 @@
+@import "variables";
+
+body > .container,
+body > .container-fluid {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+}
+
+.logo {
+  font-weight: lighter;
+  text-transform: uppercase;
+  .the {
+    font-weight: bold;
+  }
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: lighter;
+}
