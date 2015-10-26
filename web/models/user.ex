@@ -37,7 +37,7 @@ defmodule Chatty.User do
     model
     |> Ecto.Changeset.put_change(
       :password,
-      :crypto.hash(:sha256, [password, conf[:smaug][:hash_salt]]) |> Base.encode16)
+      :crypto.hash(:sha256, [password, conf[:chatty][:hash_salt]]) |> Base.encode16)
   end
 
   def crypto(model, _params), do: model

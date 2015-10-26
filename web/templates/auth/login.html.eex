@@ -1,0 +1,43 @@
+<div class="container signup">
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+      <div class="page-header">
+        <h1 class="text-center">Welcome Back</h1>
+      </div>
+
+      <a href="/auth/github" class="btn btn-block btn-social btn-github">
+        <i class="fa fa-github"></i> Log in with GitHub
+      </a>
+
+      <div class="or">OR</div>
+
+      <%= form_for @changeset, auth_path(@conn, :login), fn f -> %>
+        <%= if @changeset.action do %>
+          <div class="alert alert-danger">
+            <p>Oops, something went wrong! Please check the errors below:</p>
+            <ul>
+              <%= for {attr, message} <- f.errors do %>
+                <li><%= humanize(attr) %> <%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= label f, :email, "Email", class: "control-label" %>
+          <%= text_input f, :email, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= label f, :password, "Password", class: "control-label" %>
+          <%= password_input f, :password, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= submit "Signup", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

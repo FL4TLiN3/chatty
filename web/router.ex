@@ -27,6 +27,16 @@ defmodule Chatty.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :spa
+    get  "/login", AuthController, :show_login
+    post "/login", AuthController, :login
+    get  "/logout", AuthController, :logout
+    get  "/auth/github", AuthGithubController, :auth
+    get  "/auth/callback/github", AuthGithubController, :auth_callback
+    get  "/signup", AuthController, :new
+    post "/signup", AuthController, :create
+    get  "/signup/profile", AuthController, :profile
+    post "/signup/profile", AuthController, :update_profile
+    put  "/signup/profile", AuthController, :update_profile
   end
 
   scope "/admin", Chatty do

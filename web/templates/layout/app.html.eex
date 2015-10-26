@@ -7,6 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <%= if @user do %>
+      <meta name="tn:login" content="<%= @user.id %>">
+    <% end %>
     <meta name="tn:csrf-token" content="<%= Plug.CSRFProtection.get_csrf_token %>">
 
     <title>Chatty</title>
@@ -30,6 +33,5 @@
 
     <script src="<%= static_path(@conn, "/js/vendor.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    </div>
   </body>
 </html>

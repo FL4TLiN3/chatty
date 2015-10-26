@@ -1,4 +1,4 @@
-defmodule Smaug.Repo.Migrations.CreateUser do
+defmodule Chatty.Repo.Migrations.CreateUser do
   use Ecto.Migration
 
   def change do

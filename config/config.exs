@@ -27,3 +27,6 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+config :chatty,
+  hash_salt: "4368458F0ECDA1D2B84D19A8E5391DE13E918203C5E94F79345C97F58E98758D"
