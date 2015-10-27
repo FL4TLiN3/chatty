@@ -5,7 +5,7 @@ Array.prototype.forEach.call(document.querySelectorAll('[data-component]'), node
   let socket = new Socket("/socket", {params: {token: window.userToken}})
   socket.connect()
 
-  let channel = socket.channel("navbar:unauthorized", {})
+  let channel = socket.channel(node.getAttribute('data-component'), {})
   channel.on("new_msg", payload => {
     node.innerHTML = `${payload.body}`;
   })

@@ -3,6 +3,7 @@ defmodule Chatty.UserSocket do
 
   ## Channels
   channel "navbar:*", Chatty.NavbarComponent
+  channel "sidebar:*", Chatty.SidebarComponent
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
