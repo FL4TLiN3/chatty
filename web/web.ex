@@ -37,6 +37,16 @@ defmodule Chatty.Web do
     end
   end
 
+  def worker do
+    quote do
+      alias Chatty.Repo
+      import Ecto.Model
+      import Ecto.Query, only: [from: 1, from: 2]
+
+      import Chatty.Router.Helpers
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View, root: "web/templates"

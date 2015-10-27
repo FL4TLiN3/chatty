@@ -3,6 +3,9 @@
     <ul class="sidebar-menu">
       <li class="header">Data Browser</li>
       <li><a href="/admin/users"><i class="fa fa-users"></i> <span>User</span></a></li>
+      <li><a href="/admin/stories"><i class="fa fa-book"></i> <span>Story</span></a></li>
+      <li><a href="/admin/categories"><i class="fa fa-sitemap"></i> <span>Category</span></a></li>
+      <li><a href="/admin/feeds"><i class="fa fa-rss"></i> <span>Feed </span></a></li>
     </ul>
   </section>
 </aside>

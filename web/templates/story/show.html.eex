@@ -1,0 +1,33 @@
+<h2>Show story</h2>
+
+<ul>
+
+  <li>
+    <strong>Category:</strong>
+    <%= @story.category.name %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @story.title %>
+  </li>
+
+  <li>
+    <strong>Cover:</strong>
+    <%= @story.cover %>
+  </li>
+
+  <li>
+    <strong>Published at:</strong>
+    <%= @story.published_at %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @story.description %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: story_path(@conn, :edit, @story) %>
+<%= link "Back", to: story_path(@conn, :index) %>

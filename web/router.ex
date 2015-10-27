@@ -43,11 +43,16 @@ defmodule Chatty.Router do
     pipe_through :admin
 
     get "/", PageController, :spa
+    resources "/stories", StoryController
+    resources "/categories", CategoryController
     resources "/users", UserController
+    resources "/feeds", FeedController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Chatty do
-  #   pipe_through :api
-  # end
+  scope "/api", Chatty do
+    pipe_through :api
+
+    get  "/job/stats", JobController, :stats
+    post "/job", JobController, :create
+  end
 end

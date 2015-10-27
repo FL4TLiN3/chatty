@@ -19,7 +19,8 @@ defmodule Chatty.Mixfile do
   def application do
     [mod: {Chatty, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :mariaex, :oauth2, :tzdata]]
+                    :phoenix_ecto, :mariaex, :oauth2, :tzdata,
+                    :exq, :httpotion]]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,6 +37,10 @@ defmodule Chatty.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
+     {:exq, "~> 0.3.0"},
+     {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
+     {:httpotion, "~> 2.1.0"},
+     {:floki, "~> 0.6"},
      {:oauth2, "~> 0.3"},
      {:timex, "~> 0.19.2"}]
   end
