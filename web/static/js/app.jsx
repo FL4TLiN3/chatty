@@ -1,17 +1,20 @@
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import {Socket} from "../../../deps/phoenix/web/static/js/phoenix"
 
-import Router from './router';
-import Navbar from './navbar';
-import Sidebar from './sidebar';
-import Main from './main';
+Array.prototype.forEach.call(document.querySelectorAll('[data-component]'), node => {
+  let socket = new Socket("/socket", {params: {token: window.userToken}})
+  socket.connect()
 
-ReactDOM.render(<Navbar />, document.getElementById('navbar'));
-ReactDOM.render(<Sidebar />, document.getElementById('sidebar'));
+  let channel = socket.channel("navbar:unauthorized", {})
+  channel.on("new_msg", payload => {
+    node.innerHTML = `${payload.body}`;
+  })
 
-const router = new Router(document.getElementById('content'));
-router
-.route('/', Main)
-.run();
+  channel.join()
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp);
+    node.innerHTML = resp.html;
+  })
+  .receive("error", resp => { console.log("Unable to join", resp) })
+});
 

@@ -1,8 +1,9 @@
-defmodule Chatty.RoomChannel do
+defmodule Chatty.NavbarComponent do
   use Phoenix.Channel
 
-  def join("rooms:lobby", _message, socket) do
-    {:ok, socket}
+  def join("navbar:unauthorized", _message, socket) do
+    html = Phoenix.View.render_to_string(Chatty.NavbarComponentView, "unauthorized.html", %{})
+    {:ok, %{html: html}, socket}
   end
 
   def join("rooms:" <> _private_room_id, _params, _socket) do
