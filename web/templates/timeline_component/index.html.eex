@@ -1,0 +1,14 @@
+<div class="col-md-10 main-stories row">
+  <%= for story <- @stories do %>
+    <div class="main-story-col-item col-md-6">
+      <div class="main-story-wrapper">
+        <div class="main-story" style="<%= "background-image: url(" <> story.cover <> ")" %>">
+          <div class="tag"><%= story.category.name %></div>
+          <div class="info">
+            <p class="title"><%= story.title %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

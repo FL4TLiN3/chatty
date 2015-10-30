@@ -10,9 +10,11 @@ var babelify = require('babelify')
 var gulpBuild = module.exports = function (debug) {
   var bundler;
   var options = {
-    entries: 'web/static/js/app.jsx',
-    extensions: ['.js', '.jsx'],
-    transform: [babelify]
+    entries: 'web/static/js/app.js',
+    extensions: ['.js'],
+    transform: [babelify.configure({
+      blacklist: ["regenerator"]
+    })]
   };
 
   if (debug) {

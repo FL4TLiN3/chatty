@@ -1,6 +1,7 @@
 {
   "repository": {},
   "dependencies": {
+    "co": "^4.6.0",
     "path-to-regexp": "^1.2.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"

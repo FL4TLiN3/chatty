@@ -7,18 +7,18 @@ defmodule Chatty.Worker.FetchFeed do
 
   def perform do
     feed = Repo.one(from f in Feed, order_by: [asc: f.last_fetched_at], limit: 1)
-    headers = FeedService.head(feed.url).headers
-
-    if feed.etag != headers[:ETag] do
-      body = FeedService.get(feed.url).body
-      saveStory body.stories
-
-      feed
-      |> Feed.changeset(%{
-        etag: headers[:ETag],
-        last_fetched_at: Ecto.DateTime.local})
-      |> Repo.update!
+    IO.puts "Start Fetching Feed. URL: " <> feed.url
+    case FeedService.get(feed.url, [timeout: 100_000]).body do
+      {:ok, body} ->
+        saveStory body.stories
+      _ ->
     end
+
+    feed
+    |> Feed.changeset(%{
+      # etag: headers[:ETag],
+      last_fetched_at: Ecto.DateTime.local})
+    |> Repo.update!
   end
 
   def saveStory([head|tail]) do
