@@ -113,9 +113,16 @@ defmodule Chatty.Service.FeedService do
   end
 
   def img_in_description(document, :rss) do
-    value = document |> val("description") |> Floki.parse |> Floki.find("img") |> hd |> Floki.attribute("src") |> Floki.text
-    if String.length(value) > 0 do
-      value
+    values = document |> val("description") |> Floki.parse |> Floki.find("img")
+    case values do
+      [head|_tail] ->
+        url = head |> Floki.attribute("src") |> Floki.text
+      [] ->
+        url = ""
+    end
+
+    if String.length(url) > 0 do
+      url
     else
       nil
     end

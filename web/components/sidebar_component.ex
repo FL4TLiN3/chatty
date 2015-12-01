@@ -1,9 +1,9 @@
 defmodule Chatty.SidebarComponent do
   use Phoenix.Channel
+  import Chatty.Component
 
-  def join("sidebar:unauthorized", _message, socket) do
-    html = Phoenix.View.render_to_string(Chatty.SidebarComponentView, "unauthorized.html", %{})
-    {:ok, %{html: html}, socket}
+  def init(context, payload) do
+    context
+    |> patch "unauthorized.html", payload
   end
-
 end

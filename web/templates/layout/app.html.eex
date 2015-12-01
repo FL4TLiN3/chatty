@@ -18,11 +18,11 @@
 
   <body>
     <div class="container-fluid" role="main">
-      <div id="navbar" data-component="navbar:unauthorized"></div>
+      <div id="navbar" data-component="Navbar"></div>
 
       <div class="row">
-        <div id="sidebar" data-component="sidebar:unauthorized"></div>
-        <div id="content" data-component="timeline:unauthorized" data-client-helper="timeline"></div>
+        <div id="sidebar" data-component="Sidebar"></div>
+        <div id="content" data-component="Timeline" data-client-helper="timeline"></div>
       </div>
 
       <%= @inner %>

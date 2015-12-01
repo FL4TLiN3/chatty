@@ -2,9 +2,10 @@ defmodule Chatty.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "navbar:*", Chatty.NavbarComponent
-  channel "sidebar:*", Chatty.SidebarComponent
-  channel "timeline:*", Chatty.TimelineComponent
+  channel "ashes", Chatty.RootComponent
+  # channel "navbar:*", Chatty.Component
+  # channel "sidebar:*", Chatty.SidebarComponent
+  # channel "timeline:*", Chatty.TimelineComponent
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

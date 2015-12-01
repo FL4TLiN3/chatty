@@ -1,6 +1,6 @@
 <div class="col-md-2 visible-md visible-lg sidebar">
   <div class="menu-title"><h3>Menu</h3></div>
   <ul>
-    <li><a href="/"><i class="fa fa-comment"></i> Chat</a></li>
+    <li><a href="/"> Chat</a></li>
   </ul>
 </div>

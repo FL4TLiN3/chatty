@@ -1,62 +1,92 @@
 
+import co from 'co';
 import {Socket} from "../../../deps/phoenix/web/static/js/phoenix"
 
+import Navbar from "./navbar"
+import Sidebar from "./sidebar"
 import Timeline from "./timeline"
 
-Array.prototype.forEach.call(document.querySelectorAll('[data-component]'), node => {
-  let socket = new Socket("/socket", {params: {token: window.userToken}})
-  socket.connect()
+let components = {
+  'Navbar': Navbar,
+  'Sidebar': Sidebar,
+  'Timeline': Timeline
+};
 
-  let channel = socket.channel(node.getAttribute('data-component'), {})
-  channel._push = channel.push;
-  channel._pushQueue = [];
-  channel.push = function (message, payload) {
-    return new Promise(function (resolve) {
-      payload = payload || {};
-      payload.ts = Date.now();
-      var push = channel._push(message, payload);
+const connect = function () {
+  return new Promise(function (resolve) {
 
-      channel._pushQueue.push({
-        ts: payload.ts,
-        message: message,
-        payload: payload,
-        callback: resolve
+    let socket = new Socket("/socket");
+    socket.connect();
+
+    let channel = socket.channel('ashes', {});
+    channel
+    .join()
+    .receive("ok", resp => {
+      console.log("Ashes Joined Successfully");
+
+      channel._push = channel.push;
+      channel._pushQueue = [];
+      channel.push = function (component, message, payload) {
+        return new Promise(function (_resolve) {
+          payload = payload || {};
+          payload.ts = Date.now();
+          payload.cid = component.cid;
+          payload.cname = component.cname;
+
+          var push = channel._push(message, payload);
+
+          channel._pushQueue.push({
+            cid: component.cid,
+            ts: payload.ts,
+            message: message,
+            payload: payload,
+            callback: _resolve
+          });
+        });
+      };
+
+      channel
+      .on("noop", payload => {
+        channel._pushQueue.forEach(function (push, i) {
+          if (push.cid == payload.cid && push.ts == payload.ts) {
+            delete channel._pushQueue[i];
+          }
+        });
       });
-    });
-  };
 
-  let _module;
-  if (node.getAttribute('data-client-helper')) {
-    _module = new Timeline(node, channel);
-    _module._loaded = false;
-  }
+      channel
+      .on("patch", payload => {
+        channel._pushQueue.forEach(function (push, i) {
+          if (push.cid == payload.cid && push.ts == payload.ts) {
+            push.callback && push.callback(payload);
+            delete channel._pushQueue[i];
+          }
+        });
+      });
 
-  channel
-  .on("patch", payload => {
-    node.innerHTML = `${payload.html}`;
-
-    channel._pushQueue.forEach(function (push, i) {
-      if (push.ts == payload.ts) {
-        push.callback && push.callback(payload);
-        delete channel._pushQueue[i];
-      }
+      resolve(channel);
+    })
+    .receive("error", resp => {
+      console.log("Unable to join", resp);
+      resolve(null);
     });
   });
+};
 
-  channel.join()
-  .receive("ok", resp => {
-    console.log("Joined successfully", resp);
+co(function* () {
+  let channel = yield connect();
 
-    if (resp.html) {
-      node.innerHTML = resp.html;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-component]'), node => {
+    let componentName = node.getAttribute('data-component');
+    let component = new components[componentName](channel, node);
+
+    component._loaded = false;
+
+    if (component && !component._loaded) {
+      if (component.componentDidMount) component.componentDidMount(node, channel);
+      component._loaded = true;
     }
-
-    if (_module && !_module._loaded) {
-      _module.componentDidMount(node, channel);
-      _module._loaded = true;
-    }
-  })
-  .receive("error", resp => { console.log("Unable to join", resp) });
-
+  });
 });
+
 

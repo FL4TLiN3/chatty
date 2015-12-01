@@ -1,49 +1,43 @@
 
 defmodule Chatty.TimelineComponent do
-
   use Chatty.Web, :channel
+  import Chatty.Component
+
+  alias Chatty.State
   alias Chatty.Story
-  alias Phoenix.View
 
-  @size 20
+  @size 10
 
-  def join("timeline:unauthorized", _message, socket) do
-    query = from s in Story,
-            where: not is_nil(s.cover),
-            order_by: [desc: s.inserted_at],
-            limit: @size
-
-    stories = Repo.all(query) |> Repo.preload([:category])
-
-    html = View.render_to_string(Chatty.TimelineComponentView, "index.html", stories: stories)
-    dom = html |> Floki.parse
-
-    socket = socket
-    |> assign(:stories, stories)
-    |> assign(:dom, dom)
-
-    {:ok, %{html: html}, socket}
+  def init(context, payload) do
+    context
+    |> noop payload
   end
 
-  def handle_in("older", payload, socket) do
-    %Story{inserted_at: oldest_inserted_at} = List.last socket.assigns[:stories]
+  def older({socket, state}, payload) do
+    if !is_nil(State.get(state, :stories)) do
+      %Story{inserted_at: oldest_inserted_at} = List.last State.get(state, :stories)
+    end
 
-    query = from s in Story,
-            where: not is_nil(s.cover) and s.inserted_at < ^oldest_inserted_at,
-            order_by: [desc: s.inserted_at],
-            limit: @size
+    query = from s in Story, order_by: [desc: s.inserted_at], limit: @size
 
-    stories = socket.assigns[:stories] ++ (Repo.all(query) |> Repo.preload([:category]))
+    if oldest_inserted_at do
+      query = from s in query, where: not is_nil(s.cover) and s.inserted_at < ^oldest_inserted_at
+    end
 
-    html = View.render_to_string(Chatty.TimelineComponentView, "index.html", stories: stories)
-    dom = html |> Floki.parse
+    stories = query
+    |> Repo.all
+    |> append_to(State.get(state, :stories))
+    |> Repo.preload([:category])
 
-    socket = socket
-    |> assign(:stories, stories)
-    |> assign(:dom, dom)
+    State.set(state, :stories, stories)
+    patch({socket, state}, "index.html", stories: stories)
+  end
 
-    push socket, "patch", %{html: html, ts: payload["ts"]}
-
-    {:noreply, socket}
+  defp append_to(new_list, append_to) do
+    if is_nil append_to do
+      new_list
+    else
+      new_list = append_to ++ new_list
+    end
   end
 end
